@@ -2,7 +2,7 @@
     <div class="question-box-container">
         <b-jumbotron>
             <template v-slot:lead>
-                {{ currentQuestion.question }}
+                {{ decode(currentQuestion.question) }}
             </template>
 
             <hr class="my-4">
@@ -13,7 +13,7 @@
                         :key="index"
                         @click="selectAnswer(index)"
                         :class="answerClass(index)">
-                    {{ answer }}
+                    {{ decode(answer) }}
                 </b-list-group-item>
             </b-list-group>
 
@@ -27,6 +27,7 @@
 
 <script>
     import _ from 'lodash';
+    import he from 'he';
     export default {
         name: "QuestionBox",
         props: {
@@ -91,6 +92,9 @@
                 }
 
                 return answerClass
+            },
+            decode(str) {
+                return he.decode(str);
             }
         },
         mounted() {
