@@ -1,17 +1,33 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <Header />
+    <b-container class="bv-example-row">
+      <b-row>
+        <b-col sm="6" offset="3">
+          <QuestionBox />
+        </b-col>
+      </b-row>
+    </b-container>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header.vue'
+import QuestionBox from './components/QuestionBox.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    Header,
+    QuestionBox
+  },
+  mounted: function() {
+    fetch('https://opentdb.com/api.php?amount=10&category=23&type=multiple', {
+      method: 'get'
+    })
+    .then((response) => {
+      console.log(response.json())
+    })
   }
 }
 </script>
